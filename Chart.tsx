@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {VictoryChart, VictoryStack, VictoryGroup, VictoryArea, VictoryPortal, VictoryScatter} from 'victory';
+import {VictoryChart, VictoryStack, VictoryGroup, VictoryLine, VictoryArea, VictoryPortal, VictoryScatter, VictoryVoronoiContainer, VictoryTooltip} from 'victory';
 import { random } from 'faker';
 
 const random0to60 = () => random.number({ min: 0, max: 60 });
@@ -23,20 +23,69 @@ const generateData = (num = 12) => {
   ]
 };
 
+const Stacked = ({children}) => {
+  return (
+    <VictoryStack colorScale={["#45227B", "#6E36C5", "#8A43F6", "#A06DEE"]}>
+      {children}
+    </VictoryStack>
+  );
+}
+
 export const Chart = () => {
   const [data, setData] = useState(generateData())
   const [stacked, setStacked] = useState(true);
 
+  const internalChart = (
+    <div>
+      <VictoryGroup
+        data={data[0]}
+      >
+        {stacked ? <VictoryArea/> : <VictoryLine/>}
+        <VictoryPortal>
+          <VictoryScatter
+            size={2}
+            style={{ data: { fill: "15227B" } }}
+          />
+        </VictoryPortal>
+      </VictoryGroup>
+      <VictoryGroup
+        data={data[1]}
+      >
+        {stacked ? <VictoryArea/> : <VictoryLine/>}
+        <VictoryPortal>
+          <VictoryScatter
+            size={2}
+            style={{ data: { fill: "15227B" } }}
+          />
+        </VictoryPortal>
+      </VictoryGroup>
+      <VictoryGroup
+        data={data[2]}
+      >
+        {stacked ? <VictoryArea/> : <VictoryLine/>}
+        <VictoryPortal>
+          <VictoryScatter
+            size={2}
+            style={{ data: { fill: "15227B" } }}
+          />
+        </VictoryPortal>
+      </VictoryGroup>
+      <VictoryGroup
+        data={data[3]}
+      >
+        {stacked ? <VictoryArea/> : <VictoryLine/>}
+        <VictoryPortal>
+          <VictoryScatter
+            size={2}
+            style={{ data: { fill: "15227B" } }}
+          />
+        </VictoryPortal>
+      </VictoryGroup>
+    </div>
+  );
+
   return (
       <div>
-        <button
-          style={{ marginRight: '5px' }}
-          onClick={() => {
-            setStacked((val) => !val);
-          }}
-        >
-          Stacked? ({stacked ? "true": "false"})
-        </button>
         <button
           style={{ marginRight: '5px' }}
           onClick={() => {
@@ -61,15 +110,20 @@ export const Chart = () => {
         >
           31 points (for month)
         </button>
-        <VictoryChart width={400} height={400}>
+        <VictoryChart
+          width={900}
+          height={400}
+          animate={{ duration: 400 }}
+        >
+
           <VictoryStack colorScale={["#45227B", "#6E36C5", "#8A43F6", "#A06DEE"]}>
             <VictoryGroup
               data={data[0]}
             >
-              <VictoryArea/>
+              {stacked ? <VictoryArea/> : <VictoryLine/>}
               <VictoryPortal>
                 <VictoryScatter
-                  size={1.4}
+                  size={2}
                   style={{ data: { fill: "15227B" } }}
                 />
               </VictoryPortal>
@@ -77,10 +131,10 @@ export const Chart = () => {
             <VictoryGroup
               data={data[1]}
             >
-              <VictoryArea/>
+              {stacked ? <VictoryArea/> : <VictoryLine/>}
               <VictoryPortal>
                 <VictoryScatter
-                  size={1.4}
+                  size={2}
                   style={{ data: { fill: "15227B" } }}
                 />
               </VictoryPortal>
@@ -88,10 +142,10 @@ export const Chart = () => {
             <VictoryGroup
               data={data[2]}
             >
-              <VictoryArea/>
+              {stacked ? <VictoryArea/> : <VictoryLine/>}
               <VictoryPortal>
                 <VictoryScatter
-                  size={1.4}
+                  size={2}
                   style={{ data: { fill: "15227B" } }}
                 />
               </VictoryPortal>
@@ -99,15 +153,14 @@ export const Chart = () => {
             <VictoryGroup
               data={data[3]}
             >
-              <VictoryArea/>
+              {stacked ? <VictoryArea/> : <VictoryLine/>}
               <VictoryPortal>
                 <VictoryScatter
-                  size={1.4}
+                  size={2}
                   style={{ data: { fill: "15227B" } }}
                 />
               </VictoryPortal>
             </VictoryGroup>
-            
           </VictoryStack>
         </VictoryChart>
       </div>
