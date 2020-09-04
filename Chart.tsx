@@ -86,6 +86,8 @@ export const Chart = () => {
 
   return (
       <div>
+        <h1>Victory</h1>
+        <h3>Couldn't find fast how to not stack graphs, but I'm sure it can be done</h3>
         <button
           style={{ marginRight: '5px' }}
           onClick={() => {
